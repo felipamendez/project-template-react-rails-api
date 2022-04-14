@@ -1,5 +1,4 @@
 import { NavLink, useHistory } from "react-router-dom"
-import { useEffect } from "react"
 
 function Navbar ({ currentUser, setCurrentUser }) {
 
@@ -25,6 +24,10 @@ function Navbar ({ currentUser, setCurrentUser }) {
         })
     }
 
+    function checkUser () {
+        return currentUser && !currentUser.error
+    }
+
     function pleaseLoginMessage () {
         if (!currentUser) {
             window.alert("Please login to access site")
@@ -36,29 +39,31 @@ function Navbar ({ currentUser, setCurrentUser }) {
     return (
         <div className="navbar">
             <div className="nav-left">
-                <NavLink to={currentUser ? "/" : "/login"} className="nav-link">
+                <NavLink to={checkUser() ? "/" : "/login"} className="nav-link">
                     <h2 className="navbar-item" onClick={pleaseLoginMessage}>
                         Featured
                     </h2>
                 </NavLink>
             </div>
             <div className="nav-right">
-                {currentUser ? <h2 className="navbar-item"> Hi, {currentUser.username}! </h2> : 
-                    <><NavLink to="/login" className="nav-link">
-                        <h2 className="navbar-item">Login</h2>
-                    </NavLink>
-                    <NavLink to="/signup" className="nav-link">
-                        <h2 className="navbar-item">Sign Up</h2>
-                    </NavLink> </>}
-                    { currentUser ? 
-                    <NavLink to="/portfolio" className="nav-link">
-                        {currentUser ? <h2 className="navbar-item">My Portfolio</h2> : null}
+                {checkUser() ? <h2 className="navbar-item"> Hi, {currentUser.username}! </h2> : 
+                    <>
+                        <NavLink to="/login" className="nav-link">
+                            <h2 className="navbar-item">Login</h2>
+                        </NavLink>
+                        <NavLink to="/signup" className="nav-link">
+                            <h2 className="navbar-item">Sign Up</h2>
+                        </NavLink> 
+                    </>}
+                {checkUser() ? 
+                    <NavLink to={checkUser() ? "/portfolio" : "/login"} className="nav-link">
+                        {checkUser() ? <h2 className="navbar-item">My Portfolio</h2> : null}
                     </NavLink> : null }
-                    { currentUser ? 
-                    <NavLink to="/mycompanies" className="nav-link">
-                        {currentUser ? <h2 className="navbar-item">My Companies</h2> : null}
+                    { checkUser() ? 
+                    <NavLink to={checkUser() ? "/mycompanies" : "/login"} className="nav-link">
+                        {checkUser() ? <h2 className="navbar-item">My Companies</h2> : null}
                     </NavLink> : null }
-                {currentUser ? 
+                {checkUser() ? 
                     <h2 className="navbar-item" onClick={handleLogout}>Logout</h2> : null}
             </div>
         </div>

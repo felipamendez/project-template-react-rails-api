@@ -118,7 +118,7 @@ body {
   font-size: 18px;
   height: 50px;
   text-align: center;
-  width: 50%;
+  width: auto;
   font-weight: bold;
 }
 
@@ -131,13 +131,15 @@ body {
 }
 
 .stock-card {
-  height: 200px;
+  height: auto;
   width: 600px;
-  background-color: gray;
+  background-color: rgb(43, 43, 43);
   border-radius: 1em;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 10px;
 }
 
 .error {

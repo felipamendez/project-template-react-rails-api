@@ -3,8 +3,8 @@ import SearchStockCard from "./SearchStockCard";
 
 function Query ({currentUser, userStocks, setUserStocks}) {
     const [search, setSearch] = useState("") 
-    const [searchResponse, setSearchResponse] = useState({})
-    //either pass up search response or put state in higher componenet or render stock card here
+    const [searchResponse, setSearchResponse] = useState(null)
+   
     function handleSearchForm (e) {
         e.preventDefault()
         fetch(`https://schwab.p.rapidapi.com/quote/get-summary?symbol=${search}`, {
@@ -29,9 +29,9 @@ function Query ({currentUser, userStocks, setUserStocks}) {
             </form>
             {searchResponse ? <SearchStockCard  
                 currentUser={currentUser}
-              userStocks={userStocks}
-              setUserStocks={setUserStocks}
-              searchResponse={searchResponse}/> 
+                userStocks={userStocks}
+                setUserStocks={setUserStocks}
+                searchResponse={searchResponse}/> 
               : null}
         </div>
     )
